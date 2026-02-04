@@ -1,0 +1,36 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/
+*.db
+*.log
+appsettings.Development.json
+.env
+**/node_modules/
+*.dotCover
+*.vscode/
+*.DS_Store
+*.db
+
+# Rider
+.idea/
+
+# dotnet local tool files
+.dotnet/tools.json
+
+# Visual Studio cache/options
+.vs
+
+# Resharper
+_ReSharper*/
+*/_ReSharper*/
+
+# Publish
+publish/
+
+# EF migrations snapshot
+*/Migrations/*.Designer.cs

@@ -1,0 +1,26 @@
+@model IEnumerable<ECommerceApp.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Products</h2>
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                @if (!string.IsNullOrEmpty(p.ImageUrl))
+                {
+                    <img src="@p.ImageUrl" class="card-img-top" alt="@p.ProductName" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@p.ProductName</h5>
+                    <p class="card-text">@p.Description</p>
+                    <p class="card-text"><strong>@p.Price.ToString("C")</strong></p>
+                    <p class="card-text"><small class="text-muted">Stock: @p.StockQuantity</small></p>
+                    <p class="card-text"><small class="text-muted">Category: @(p.Category?.CategoryName ?? "Uncategorized")</small></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

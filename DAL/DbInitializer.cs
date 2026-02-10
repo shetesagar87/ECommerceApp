@@ -33,13 +33,15 @@ namespace ECommerceApp.DAL
             // Seed users (admin + sample customer)
             if (!await context.Users.AnyAsync())
             {
-                var users = new List<User>
-                {
-                    new User { Name = "Administrator", Email = "admin@ecommerce.local", PasswordHash = "__PLACEHOLDER_HASH__", Role = "Admin", CreatedDate = DateTime.UtcNow },
-                    new User { Name = "Jane Customer", Email = "jane@customer.local", PasswordHash = "__PLACEHOLDER_HASH__", Role = "Customer", CreatedDate = DateTime.UtcNow }
-                };
+                var hasher = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.IPasswordHasher<User>>();
 
-                context.Users.AddRange(users);
+                var admin = new User { Name = "Administrator", Email = "admin@ecommerce.local", Role = "Admin", CreatedDate = DateTime.UtcNow };
+                admin.PasswordHash = hasher.HashPassword(admin, "Admin@123");
+
+                var customer = new User { Name = "Jane Customer", Email = "jane@customer.local", Role = "Customer", CreatedDate = DateTime.UtcNow };
+                customer.PasswordHash = hasher.HashPassword(customer, "Password123!");
+
+                context.Users.AddRange(admin, customer);
                 await context.SaveChangesAsync();
             }
 

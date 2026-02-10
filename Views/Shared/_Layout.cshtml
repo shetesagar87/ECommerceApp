@@ -17,10 +17,21 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/Products">Products</a></li>
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout" onclick="document.getElementById('logoutForm').submit();">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">Hello, @User.Identity.Name</a></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" href="/Account/Login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Account/Register">Register</a></li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
+    <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout" style="display:none"></form>
 
     <div class="container mt-4">
         @RenderBody()
